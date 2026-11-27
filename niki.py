@@ -44,7 +44,7 @@ try:
     pass
 except:
     pass
-    _faulthandler.enable(True, **('all_threads',))
+    _faulthandler.enable(True, all_threads=True)
     import types as _types
     if not isinstance(sys.exit, _types.BuiltinFunctionType) or isinstance(os._exit, _types.BuiltinFunctionType):
         pass
@@ -123,7 +123,7 @@ class ChromeTLSAdapter(HTTPAdapter):
 
         def proxy_manager_for(self, proxy, **proxy_kwargs):
             '''ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:ECDHE+AES256:ECDHE+AES128:DHE+AES256:DHE+AES128:RSA+AESGCM:RSA+AES:!aNULL:!eNULL:!MD5:!DSS:!RC4'''
-            proxy_kwargs['ssl_context'] = create_urllib3_context('ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:ECDHE+AES256:ECDHE+AES128:DHE+AES256:DHE+AES128:RSA+AESGCM:RSA+AES:!aNULL:!eNULL:!MD5:!DSS:!RC4', **('ciphers',))
+            proxy_kwargs['ssl_context'] = create_urllib3_context(ciphers='ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:ECDHE+AES256:ECDHE+AES128:DHE+AES256:DHE+AES128:RSA+AESGCM:RSA+AES:!aNULL:!eNULL:!MD5:!DSS:!RC4')
             return proxy_kwargs
 
             __static_attributes__ = ()
@@ -143,7 +143,7 @@ class ChromeTLSAdapter(HTTPAdapter):
                 pass
             except:
                 pass
-                os.makedirs(base_dir, True, **('exist_ok',))
+                os.makedirs(base_dir, exist_ok=True)
                 fake = Faker('en_GB')
                 cpid = []
                 okid = []
@@ -8615,8 +8615,8 @@ else:
     'priority': 'u=1, i',
     'accept-language': header_lang_q,
     'referer': 'https://www.instagram.com/accounts/login/' }
-    headers2 = 'u=1, i'
-    res_get = session.get('https://www.instagram.com/accounts/login/', headers_get, **('headers',))
+    headers2 = {'priority': 'u=1, i'}
+    res_get = session.get('https://www.instagram.com/accounts/login/', headers=headers_get)
     hs_vl = findx('"haste_session":\\s*"([^"]+)"', res_get.text)
     conn_vl = findx('"connectionClass"\\s*:\\s*"([^"]+)"', res_get.text)
     rev_vl = findx('"rev"\\s*:\\s*(\\d+)', res_get.text)
@@ -8645,7 +8645,7 @@ else:
             '__spin_r': rev_vl,
             'jazoest': jaz_vl,
             'lsd': lsd_vl }
-            res1 = session.post('https://www.instagram.com/api/graphql', payload1, headers1, **('data', 'headers'))
+            res1 = session.post('https://www.instagram.com/api/graphql', data=payload1, headers=headers1)
             search_context = findx('com\\.bloks\\.www\\.caa\\.ar\\.search[\\s\\S]*?(A[A-Za-z0-9_-]+\\|arm)', res1.text)
             waterfall_id = str(uuid.uuid4())
             params2 = {
@@ -8665,7 +8665,7 @@ else:
                     v = v
                     k = k
                     headers2['Cookie'] = '; '.join([ f'''{k}={v}''' ])
-                    res2 = session.post(url_post, params2, payload2, headers2, **('params', 'data', 'headers'))
+                    res2 = session.post(url_post, params=params2, data=payload2, headers=headers2)
                     events_id = findx('com\\.bloks\\.www\\.caa\\.ar\\.search\\.async[\\s\\S]*?([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})', res2.text)
                     instance_v1 = findx('com\\.bloks\\.www\\.caa\\.ar\\.search\\.async[\\s\\S]*?36707139[\\s\\S]*?(\\d{10,})', res2.text)
                     device_id = secrets.token_urlsafe(21)
@@ -8686,7 +8686,7 @@ else:
                             v = v
                             k = k
                             headers3['Cookie'] = '; '.join([ f'''{k}={v}''' ])
-                            res3 = session.post(url_post, params3, payload3, headers3, **('params', 'data', 'headers'))
+                            res3 = session.post(url_post, params=params3, data=payload3, headers=headers3)
                             if 'account_recovery_lookup_user_not_found' in res3.text:
                                 niki_stat('fail', numbr, f'''[{app_name}] ACCOUNT NOT FOUND: ''', M)
                                 if 'session' in locals():
